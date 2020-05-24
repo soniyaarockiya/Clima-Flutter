@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 //Makes Api call to get the Json response
 class Networking {

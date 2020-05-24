@@ -8,6 +8,19 @@ const apiKey = "b4a34514f7c95cb3ff065c26125d27c6";
 class WeatherModel {
   Networking _networking = Networking();
 
+  Future<List<dynamic>> getCityWeather(String cityName) async {
+    String urlNew =
+        'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey';
+    dynamic responseNew = await _networking.getData(urlNew);
+    print(responseNew);
+    dynamic conditionNew = responseNew['weather'][0]['id'];
+    dynamic temperatureNew = responseNew['main']['temp'];
+    List<dynamic> weatherData = List();
+    weatherData.add(conditionNew);
+    weatherData.add(temperatureNew);
+    return weatherData;
+  }
+
   Future<List<dynamic>> getLocationWeather(dynamic position) async {
     String url =
         "https://api.openweathermap.org/data/2.5/weather?lat=${position

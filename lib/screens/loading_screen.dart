@@ -3,8 +3,14 @@ import 'package:clima/services/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:clima/screens/location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
+  final dynamic conditionFromPrev;
+  final dynamic temperatureFromPrev;
+
+  LoadingScreen({this.conditionFromPrev, this.temperatureFromPrev});
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -37,15 +43,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
     temperature = weatherData[1];
 
     //pass the weather details to the location screen using arguments in named routes
-    Navigator.pushNamed(context, "locationScreen",
-        arguments: {'condition': condition, "temp": temperature});
+//    Navigator.pushNamed(context, "locationScreen",
+//        arguments: {'condition': condition, "temp": temperature});
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen(
+        temperaturePass: temperature,
+        conditionPass: condition,
+      );
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
     print("Building the app");
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text('Clima'),
       ),
       //The loading indicator will be displayed till all the details are being retrieved
